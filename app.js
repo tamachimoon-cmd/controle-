@@ -1,4 +1,4 @@
-const API_URL = "https://69d82cf90576c93882592c6b.mockapi.io/gastos";
+const API_URL = "https://69d82cf90576c93882592c6b.mockapi.io/users-info";
 
 const PIE_COLORS = ["#f2c94c", "#d6a93a", "#a77b20", "#7a5a18", "#c9b06a", "#8f7a3f"];
 
@@ -413,8 +413,7 @@ async function loadData() {
   elements.statusText.textContent = "Conectando à MockAPI...";
 
   try {
-    const requestUrl = `${API_URL}?_=${Date.now()}`;
-    const response = await fetch(requestUrl, {
+    const response = await fetch(API_URL, {
       method: "GET",
       cache: "no-store",
       headers: { Accept: "application/json" },
