@@ -108,6 +108,16 @@ function safeDate(value) {
   }
 
   const text = String(value).trim();
+
+  // Data ISO sem horário (YYYY-MM-DD) deve ser criada no fuso local.
+  // new Date("2026-05-01") usa UTC e no Brasil pode virar 30/04.
+  const isoDateOnly = text.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (isoDateOnly) {
+    const [, year, month, day] = isoDateOnly;
+    const date = new Date(Number(year), Number(month) - 1, Number(day));
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+
   const br = text.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/);
 
   if (br) {
