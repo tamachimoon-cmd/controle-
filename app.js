@@ -59,8 +59,9 @@ function normalizeType(value) {
 
 function normalizeTransaction(item, index = 0) {
   return {
-    id: item.id ?? index + 1,
+    id: item.ide ?? item.id ?? index + 1,
     title:
+      item.buy ??
       item.title ??
       item.titulo ??
       item.descricao ??
@@ -68,10 +69,26 @@ function normalizeTransaction(item, index = 0) {
       item.nome ??
       item.name ??
       `Lançamento ${index + 1}`,
-    type: normalizeType(item.type ?? item.tipo ?? item.natureza ?? item.movimento),
-    category: item.category ?? item.categoria ?? item.grupo ?? "Sem categoria",
-    amount: parseCurrencyValue(item.amount ?? item.valor ?? item.value ?? item.preco ?? item.total ?? 0),
+    type: normalizeType(
+      item.movimento ??
+      item.tipoMovimento ??
+      item.tipoLancamento ??
+      item.natureza ??
+      item.tipo ??
+      item.type
+    ),
+    category: item.category ?? item.categoria ?? item.grupo ?? item.type ?? "Sem categoria",
+    amount: parseCurrencyValue(
+      item.value2 ??
+      item.amount ??
+      item.valor ??
+      item.value ??
+      item.preco ??
+      item.total ??
+      0
+    ),
     date:
+      item.date2 ??
       item.date ??
       item.data ??
       item.dataLancamento ??
